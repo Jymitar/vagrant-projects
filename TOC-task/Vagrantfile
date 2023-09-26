@@ -1,0 +1,21 @@
+
+Vagrant.configure("2") do |config|
+
+  config.vm.define "k8s" do |k8svm|
+    k8svm.vm.box = "bento/ubuntu-22.04"
+    k8svm.vm.hostname = "k8s"
+    # k8svm.vm.network "public_network"
+    k8svm.vm.network "private_network", ip: "192.168.79.100"
+    k8svm.vm.provider "vmware_desktop" do |vb|
+      vb.vmx["memsize"] = "8192"
+      vb.vmx["numvcpus"] = "4"
+    end
+    k8svm.vm.provision "shell", path: "docker-install.sh"
+    k8svm.vm.provision "shell", path: "kubectl-install.sh"
+    k8svm.vm.provision "shell", path: "minikube-install.sh"
+    k8svm.vm.provision "shell", path: "helm-install.sh" 
+    k8svm.vm.provision "shell", path: "istio-install.sh"
+    k8svm.vm.provision "shell", path: "python-app-install.sh"    
+  end
+
+end
