@@ -1,1 +1,0 @@
-vagrant executes the commands as a root user and this is in conflict with some of the provisioning where root is not recommended/allowed. That's why we have sudo -u to switch to vagrant user.
